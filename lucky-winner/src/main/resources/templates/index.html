@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>Lucky Winner Application</title>
+    <script>
+        function myFunction() {
+          var xhr = new XMLHttpRequest();
+          url = "/winner"
+          xhr.open("GET", url, true);
+          xhr.setRequestHeader("Content-Type", "application/json");
+          xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("result").innerHTML = this.responseText;
+            }
+          };
+          xhr.send();
+        }
+    </script>
+
+</head>
+
+<body>
+
+<h1 style="center">
+    Lucky Winner of the Day
+</h1>
+<div>
+    <button type="submit"  onclick="myFunction()">Get Winner</button>
+</div>
+<div>
+    <p>Result:</p>
+    <textarea id="result" cols="60" rows="1" >Result will be displayed here</textarea>
+</div>
+</body>
+
+
+</html>

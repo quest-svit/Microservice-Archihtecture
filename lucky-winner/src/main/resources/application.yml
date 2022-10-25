@@ -1,0 +1,33 @@
+server:
+  port: 8082
+
+api-gateway:
+  url: http://localhost:8020
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8010/eureka
+
+management.health.circuitbreakers.enabled: true
+management.endpoints.web.exposure.include : '*'
+management.endpoint.health.show-details: always
+
+
+spring:
+  application:
+    name: lucky-winner-service
+
+resilience4j:
+  circuitbreaker.instances:
+    customer-service:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState : 5
+        ringBufferSizeInHalfOpenState : 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 5
+        waitDurationInOpenState: 1s
+        recordExceptions:
+          - java.io.IOException
+          - java.util.concurrent.TimeoutException
+          - org.springframework.web.client.ResourceAccessException
